@@ -8,6 +8,8 @@ contents of your `.ssh/id_rsa` file will be sent over TCP to
 [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=matklad.rust-analyzer)
 VSCode plugin.
 
+[Or watch the video example](https://www.youtube.com/watch?v=RRLw3OBJ0fM).
+
 # Exfiltrating secrets with Rust macros
 
 This is a proof-of-concept of exfiltrating secrets from a developer's machine.
