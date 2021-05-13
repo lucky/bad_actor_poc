@@ -1,12 +1,18 @@
-This is a proof-of-concept of exfiltrating secrets from a developer's laptop _at compile-time_.
+This is a proof-of-concept of exfiltrating secrets from a developer's laptop.
+When `innocent_app` is opened in VSCode, for example, the editor runs enough
+of the Rust toolchain to expand the nefarious `make_answer!` macro, which opens
+`.ssh/id_rsa` and sends its contents to `localhost:8080`.
 
-The `bad_actor` crate exposes a `make_answer!` macro which is used by the `innocent_app` crate. When the latter is built, it can exfiltrate secrets:
+**This shows a trivial example of exfiltrating secrets just by the developer
+opening up the source code in an editor.**
 
-```shell
-[jared@localhost innocent_app]$ cargo build
-   Compiling bad_actor v0.1.0 (/home/jared/Projects/bad_actor_poc/bad_actor)
-   Compiling innocent_app v0.1.0 (/home/jared/Projects/bad_actor_poc/innocent_app)
-Your aws credentials are: <<<REDACTED>>>
+To test:
 
-    Finished dev [unoptimized + debuginfo] target(s) in 1.11s
-```
+ * Listen on port 8080 locally, for example with `nc -lk 8080`
+ * Open up the `innocent_app` in VSCode\* (other editors currently untested)
+
+Once open, VSCode will analyze and index the code, including the expansion of
+macros, then you should see the contents of your `.ssh/id_rsa` private key in
+the `nc` window.
+
+*This assumes you have the rust toolchain available on your machine.
