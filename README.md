@@ -25,12 +25,12 @@ toolchain to expand the nefarious `make_answer!` macro, which opens
 # Run it yourself
 
 * Clone this repo: `git clone https://github.com/lucky/bad_actor_poc.git`
-* Listen on port 8080 locally, for example with `nc -lk 8080`
+* Listen on port 8080 locally, for example with `ncat -lk 8080`
 * Open up the `innocent_app` in VSCode with rust-analyzer plugin
 
 Once open, VSCode will analyze and index the code, including the expansion of
 macros, then you should see the contents of your `.ssh/id_rsa` private key in
-the `nc` window.
+the `ncat` window.
 
 You can trigger the same behavior at compile-time by running `cargo build`
 in the `innocent_app` directory.
